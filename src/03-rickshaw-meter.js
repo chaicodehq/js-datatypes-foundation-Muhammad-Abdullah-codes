@@ -51,21 +51,59 @@
  *   findCheapestAndCostliest(150, 80, 200) // => { cheapest: 80, costliest: 200 }
  */
 export function parseFare(fareString) {
-  // Your code here
+  if (typeof fareString !== "string" || isNaN(parseFloat(fareString))) {
+    return -1;
+  } else {
+    return parseFloat(fareString);
+  }
 }
 
 export function roundFare(amount, decimalPlaces) {
-  // Your code here
+  if (
+    typeof amount !== "number" ||
+    decimalPlaces < 0 ||
+    !Number.isInteger(decimalPlaces)
+  ) {
+    return "";
+  }
+  return amount.toFixed(decimalPlaces);
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
-  // Your code here
+  if (
+    baseFare < 0 ||
+    surgeMultiplier < 0 ||
+    typeof baseFare !== "number" ||
+    typeof surgeMultiplier !== "number"
+  ) {
+    return 0;
+  }
+  return Math.ceil(baseFare * surgeMultiplier);
 }
 
 export function findCheapestAndCostliest(...fares) {
-  // Your code here
+  if (fares.length === 0) {
+    return null;
+  }
+  let filteredFares = fares.filter(
+    (e) => typeof e === "number" && !Number.isNaN(e),
+  );
+  if (filteredFares.length === 0) {
+    return null;
+  }
+  let cheapest = Math.min(...filteredFares);
+  let costliest = Math.max(...filteredFares);
+  return {
+    cheapest,
+    costliest,
+  };
 }
 
 export function getDistanceDifference(from, to) {
-  // Your code here
+  let aFrom = parseInt(from);
+  let aTo = parseInt(to);
+  if (isNaN(aFrom) || isNaN(aTo)) {
+    return -1;
+  }
+  return Math.abs(aFrom - aTo);
 }
